@@ -4,6 +4,7 @@ package com.example.faab.controller;
 import com.example.faab.constants.TemplateConstant;
 import com.example.faab.domain.ApiResult;
 import com.example.faab.domain.ApiResultUtil;
+import com.example.faab.domain.StatusCodeEnum;
 import com.example.faab.domain.UserVO;
 import com.example.faab.entity.*;
 import com.example.faab.exception.BaseException;
@@ -85,7 +86,12 @@ public class UploadFileController {
             PP pp = (PP) session.getAttribute("pp");
             SK sk = (SK) session.getAttribute("sk");
             UserVO loginUser = (UserVO) session.getAttribute("loginUser");
+            //TODO actually need todo by interceptor
+            if(loginUser==null){
+                throw new BaseException(StatusCodeEnum.NOT_LOGIN.getCode(),StatusCodeEnum.NOT_LOGIN.getMessage());
+            }
             List userAttr = userAttrService.getUserAttr(loginUser.getUsername());
+
             String[] attrs = (String[]) userAttr.toArray(new String[userAttr.size()]);
 
             //generate access policy
@@ -132,6 +138,10 @@ public class UploadFileController {
         List<String> fileUrl = new ArrayList<>();
         SK sk = (SK) session.getAttribute("sk");
         UserVO loginUser = (UserVO) session.getAttribute("loginUser");
+        //TODO actually need todo by interceptor
+        if(loginUser==null){
+            throw new BaseException(StatusCodeEnum.NOT_LOGIN.getCode(),StatusCodeEnum.NOT_LOGIN.getMessage());
+        }
         List<String> userAttr = loginUser.getAttr();
         String[] attrs = userAttr.toArray(new String[userAttr.size()]);
 //        UserVO oneUser = userService.getOneUser("001");

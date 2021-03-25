@@ -10,6 +10,7 @@ public enum  StatusCodeEnum {
     SUCCESS_DELETE("204", "用户删除数据成功"),
 
     DOWNLOAD_FAILED("300","download file failed"),
+    NOT_LOGIN("301","need login in first when operate file"),
 
     PARAM_ERROR("400", "参数不合法"),
     AUTHORIZED_ERROR("401", "Error:"),
